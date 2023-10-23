@@ -15,7 +15,7 @@ struct ContentView: View {
         VStack {
             HStack {
                 ForEach(0..<cardCount, id:\.self) { index in
-                    CardView(isFaceUp: true, content: emojis[index])
+                    CardView(content: emojis[index])
                 }
             }
                 
@@ -35,32 +35,40 @@ struct ContentView: View {
         
         
         
+        
+        
     }
 }
 
 
 struct CardView: View {
    
-    var isFaceUp = true
+    @State var isFaceUp = true
     var content: String
 
     var body: some View {
         
-        if isFaceUp {
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.white)
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(lineWidth: 3)
-                Text(content)
-                    .font(.largeTitle)
-            }
-            .padding(2)
-            .foregroundColor(.orange)
-        } else {
-            RoundedRectangle(cornerRadius: 12)
+        ZStack {
+            if isFaceUp {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.white)
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(lineWidth: 3)
+                    Text(content)
+                        .font(.largeTitle)
+                }
+                .padding(2)
                 .foregroundColor(.orange)
+            } else {
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundColor(.orange)
+            }
+                
+        }.onTapGesture {
+            isFaceUp.toggle()
         }
+        
     }
         
         
