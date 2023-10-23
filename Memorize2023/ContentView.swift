@@ -8,16 +8,66 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var cardCount = 4
+
     var body: some View {
+        let emojis = ["🕷️","🎃","👻","🕸️","🧙‍♀️","👿"]
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            HStack {
+                ForEach(0..<cardCount, id:\.self) { index in
+                    CardView(isFaceUp: true, content: emojis[index])
+                }
+            }
+                
+            HStack {
+                Button("add card") {
+                    cardCount += 1
+                    print("add")
+                }
+                Spacer()
+                Button("delete card") {
+                    cardCount -= 1
+                    print("delete")
+                }
+            }
+            .padding()
         }
-        .padding()
+        
+        
+        
     }
 }
+
+
+struct CardView: View {
+   
+    var isFaceUp = true
+    var content: String
+
+    var body: some View {
+        
+        if isFaceUp {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.white)
+                RoundedRectangle(cornerRadius: 12)
+                    .strokeBorder(lineWidth: 3)
+                Text(content)
+                    .font(.largeTitle)
+            }
+            .padding(2)
+            .foregroundColor(.orange)
+        } else {
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundColor(.orange)
+        }
+    }
+        
+        
+    
+    
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
