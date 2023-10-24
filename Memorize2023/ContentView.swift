@@ -42,27 +42,24 @@ struct ContentView: View {
             .foregroundColor(.orange)
     }
     
-    
-    var addButton : some View {
-        
+    func cardCountAdjuster( by Offset: Int, symbol: String) -> some View {
         Button(action: {
-            cardCount += 1
+            cardCount += Offset
         }, label: {
-            Image(systemName: "plus.rectangle.on.folder.fill" )
+            Image(systemName: symbol )
                 
         }).font(.largeTitle)
             .imageScale((.large))
         
     }
     
+    
+    var addButton : some View {
+        cardCountAdjuster(by: 1, symbol: "plus.rectangle.on.folder.fill")
+    }
+    
     var deleteButton : some View {
-        Button(action: {
-            cardCount -= 1
-        }, label: {
-            Image(systemName: "folder.badge.minus.fill" )
-                
-        }).font(.largeTitle)
-            .imageScale((.large))
+        cardCountAdjuster(by: 1, symbol: "folder.badge.minus.fill" )
     }
     
     
