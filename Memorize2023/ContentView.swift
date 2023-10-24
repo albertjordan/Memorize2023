@@ -8,36 +8,64 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @State var cardCount = 4
+    
+    let emojis = ["🕷️","🎃","👻","🕸️","🧙‍♀️","👿"]
 
     var body: some View {
-        let emojis = ["🕷️","🎃","👻","🕸️","🧙‍♀️","👿"]
+        
         VStack {
-            HStack {
-                ForEach(0..<cardCount, id:\.self) { index in
-                    CardView(content: emojis[index])
-                }
-            }
-                
-            HStack {
-                Button("add card") {
-                    cardCount += 1
-                    print("add")
-                }
-                Spacer()
-                Button("delete card") {
-                    cardCount -= 1
-                    print("delete")
-                }
-            }
-            .padding()
+            cards
+            cardCountAdjusters
         }
         
+    }
+    
+    var cardCountAdjusters : some View {
+        HStack {
+            deleteButton
+            Spacer()
+            addButton
+        }.padding()
+    }
+    
+    
+    var cards: some View {
         
+        HStack {
+            ForEach(0..<cardCount, id:\.self) { index in
+                CardView(content: emojis[index])
+            }
+        }
+    }
+    
+    
+    var addButton : some View {
         
-        
+        Button(action: {
+            cardCount += 1
+        }, label: {
+            Image(systemName: "plus.rectangle.on.folder.fill" )
+                
+        }).font(.largeTitle)
+            .imageScale((.large))
         
     }
+    
+    var deleteButton : some View {
+        Button(action: {
+            cardCount -= 1
+        }, label: {
+            Image(systemName: "folder.badge.minus.fill" )
+                
+        }).font(.largeTitle)
+            .imageScale((.large))
+    }
+    
+    
+    
+    
 }
 
 
