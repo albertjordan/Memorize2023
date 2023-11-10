@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable {
     
     var cards: [Card]
     
@@ -15,8 +15,8 @@ struct MemoryGame<CardContent> {
         cards = []
         for index in 0..<numberOfPairsOfCards {
             let content = getCardContent(index)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(content: content, id: "1a - \(index)"))
+            cards.append(Card(content: content, id: "1b - \(index)"))
         }
     }
     
@@ -29,10 +29,15 @@ struct MemoryGame<CardContent> {
         cards.shuffle()
     }
     
-    struct Card {
+    struct Card: Equatable, Identifiable {
+        
+        
         let isFaceUp = true
         let isMatched = false
         let content: CardContent
+        
+        var id: String
+
         
     }
     
